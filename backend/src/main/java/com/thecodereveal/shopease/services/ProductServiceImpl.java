@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -46,6 +47,13 @@ public class ProductServiceImpl implements ProductService{
 
         List<Product> products = productRepository.findAll(productSpecification);
         return productMapper.getProductDtos(products);
+    }
+
+    @Override
+    public List<ProductDto> getNewArrivals() {
+        List<Product> newArrivals = productRepository.findByIsNewArrivalTrue();
+
+        return productMapper.getProductDtos(newArrivals);
     }
 
     @Override

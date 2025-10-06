@@ -23,4 +23,6 @@ public interface ProductService {
     List<ProductDto> searchProducts(String name, String categoryType,
                                     Double minPrice, Double maxPrice,
                                     String color, String size);
+
+    List<ProductDto> getNewArrivals();
 }

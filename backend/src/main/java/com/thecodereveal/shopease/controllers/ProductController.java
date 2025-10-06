@@ -72,4 +72,13 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("/newArrivals")
+    public ResponseEntity<List<ProductDto>> getNewArrivals() {
+        List<ProductDto> listArrivals = productService.getNewArrivals();
+
+        return ResponseEntity.ok(listArrivals);
+    }
+
+
+
 }
