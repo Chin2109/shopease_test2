@@ -5,6 +5,7 @@ import com.thecodereveal.shopease.dto.CategoryTypeDto;
 import com.thecodereveal.shopease.entities.Category;
 import com.thecodereveal.shopease.entities.CategoryType;
 import com.thecodereveal.shopease.exceptions.ResourceNotFoundEx;
+import com.thecodereveal.shopease.mapper.CategoryMapper;
 import com.thecodereveal.shopease.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     public Category getCategory(UUID categoryId){
         Optional<Category> category = categoryRepository.findById(categoryId);
@@ -103,5 +107,13 @@ public class CategoryService {
 
     public void deleteCategory(UUID categoryId) {
         categoryRepository.deleteById(categoryId);
+    }
+
+    public List<CategoryTypeDto> getCategoryTypebyCategory(String categoryname) {
+        Category category = categoryRepository.findByName(categoryname);
+
+        List<CategoryType> listType = category.getCategoryTypes();
+
+        return categoryMapper.toDtoList(listType);
     }
 }

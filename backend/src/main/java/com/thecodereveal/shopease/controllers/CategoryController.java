@@ -1,6 +1,7 @@
 package com.thecodereveal.shopease.controllers;
 
 import com.thecodereveal.shopease.dto.CategoryDto;
+import com.thecodereveal.shopease.dto.CategoryTypeDto;
 import com.thecodereveal.shopease.entities.Category;
 import com.thecodereveal.shopease.services.CategoryService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,8 +25,14 @@ public class CategoryController {
     public ResponseEntity<Category> getCategoryById(@PathVariable(value = "id",required = true) UUID categoryId){
         Category category = categoryService.getCategory(categoryId);
         return new ResponseEntity<>(category, HttpStatus.OK);
-
     }
+
+    @GetMapping("/type/{categoryName}")
+    public ResponseEntity<List<CategoryTypeDto>> getTypeByName(@PathVariable(value = "categoryName",required = true) String categoryName) {
+        List<CategoryTypeDto> typeList = categoryService.getCategoryTypebyCategory(categoryName);
+        return new ResponseEntity<>(typeList, HttpStatus.OK);
+    }
+
 
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories(HttpServletResponse response){
